@@ -19,18 +19,25 @@ def test_add(client):
     # Assert that the response status code is 200
     assert response.status_code == 200
 
-    # Check if the response contains valid HTML content
-    assert b'Hello, how are you?' in response.data
-    assert b'<h2>Simple Calculator..</h2>' in response.data
-    assert b'<form method="post">' in response.data
-    assert b'<input type="number" name="a" placeholder="Enter first number" required>' in response.data
-    assert b'<input type="number" name="b" placeholder="Enter second number" required>' in response.data
-    assert b'<select name="operation">' in response.data
-    assert b'<option value="add">Addition</option>' in response.data
-    assert b'<option value="subtract">Subtraction</option>' in response.data
-    assert b'<option value="multiply">Multiplication</option>' in response.data
-    assert b'<option value="divide">Division</option>' in response.data
-    assert b'<button type="submit">Calculate</button>' in response.data
+    # Define expected HTML content
+    expected_content = [
+        b'<h3>Hello, how are you?</h3>',
+        b'<h2>Simple Calculator..</h2>',
+        b'<form method="post">',
+        b'<input type="number" name="a" placeholder="Enter first number" required>',
+        b'<input type="number" name="b" placeholder="Enter second number" required>',
+        b'<select name="operation">',
+        b'<option value="add">Addition</option>',
+        b'<option value="subtract">Subtraction</option>',
+        b'<option value="multiply">Multiplication</option>',
+        b'<option value="divide">Division</option>',
+        b'<button type="submit">Calculate</button>'
+    ]
+
+    # Check if each expected HTML content is present in the response data
+    for content in expected_content:
+        assert content in response.data
+
 
 
 
