@@ -1,5 +1,4 @@
 # test_calculator.py
-
 import pytest
 from calculator import calculator
 
@@ -12,7 +11,7 @@ def client():
 def test_add(client):
     response = client.get('/?a=10&b=5&operation=add')  # Updated route here
     assert response.status_code == 200
-    
+
     # Check if the response contains valid JSON data
     json_data = response.get_json()
     if json_data is None:
@@ -20,14 +19,23 @@ def test_add(client):
         print(response.data.decode('utf-8'))  # Print the response content
         assert False  # Fail the test
 
-    # Perform assertions on the JSON data
     assert json_data['result'] == 15
     print(f"Test addition: 10 + 5 = {json_data['result']}")
 
-    # Add similar checks for other test cases...
+    response = client.get('/?a=-1&b=1&operation=add')  # Update with subtraction operation
+    assert response.status_code == 200
 
-if __name__ == '__main__':
-    pytest.main(['-v', __file__])
+    json_data = response.get_json()
+    assert json_data['result'] == 0
+    print(f"Test addition: -1 + 1 = {json_data['result']}")
+
+    response = client.get('/?a=-1&b=-1&operation=add')  # Update with multiplication operation
+    assert response.status_code == 200
+
+    json_data = response.get_json()
+    assert json_data['result'] == -2
+    print(f"Test addition: -1 + -1 = {json_data['result']}")
+
 
 
 
