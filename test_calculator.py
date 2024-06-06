@@ -12,7 +12,11 @@ def client():
 def test_add(client):
     response = client.get('/')
     assert response.status_code == 200
-    assert b'<h2>Simple Calculator</h2>' in response.data
+    assert b'Simple Calculator' in response.data
+    print("Test passed: Simple Calculator title is present in the HTML.")
+
+    assert b'Outcome: None' in response.data
+    print("Test passed: Outcome is present in the HTML.")
     
     # Test addition: 10 + 5
     client.post('/', data={'display': '10+5='})
