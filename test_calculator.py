@@ -16,7 +16,7 @@ def client():
 #     assert json_data['result'] == 15
 #     print(f"Test addition: 10 + 5 = {json_data['result']}")
 
-    def test_add(client):
+def test_add(client):
     response = client.get('/?a=10&b=5&operation=add')
     assert response.status_code == 200
 
