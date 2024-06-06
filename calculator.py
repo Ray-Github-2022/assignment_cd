@@ -81,8 +81,8 @@ HTML_PAGE = """
             <button type="submit" name="operator" value="/">/</button>
             <br> <!-- New row for DEL=clear and calculate= buttons -->
             <button type="submit" name="clear" value="clear">Del</button>
+            <button type="submit" name="negate" value="negate">+/-</button>
             <button type="submit" name="calculate" value="calculate">=</button>
-            
         </form>
         {% if result is defined %}
         <h3>Outcome: {{ result }}</h3>
@@ -112,8 +112,13 @@ def handle_calculator():
                 result = eval(expression)
             except Exception as e:
                 result = 'Error: ' + str(e)
+        elif 'negate' in request.form:
+            if expression:
+                # Toggle the sign of the number
+                expression = expression[1:] if expression.startswith('-') else '-' + expression
 
     return render_template_string(HTML_PAGE, expression=expression, result=result)
 
 if __name__ == '__main__':
     calculator.run(debug=True)
+
