@@ -2,12 +2,12 @@
 
 # test_addition.py
 import pytest
-from calculate import calculate
+from calculator import calculator
 
 @pytest.fixture
 def client():
-    calculate.config['TESTING'] = True
-    with calculate.test_client() as client:
+    calculator.config['TESTING'] = True
+    with calculator.test_client() as client:
         yield client
 
 def test_add(client):
