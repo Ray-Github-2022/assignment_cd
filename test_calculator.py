@@ -10,27 +10,30 @@ def client():
         yield client
 
 def test_add(client):
-    response = client.get('/?a=10&b=5&operation=add')  # Updated route here
-    json_data = response.get_json()
+    response = client.get('/')
     assert response.status_code == 200
-    assert json_data['result'] == 15
-    print(f"Test addition: 10 + 5 = {json_data['result']}")
+    assert b'<h2>Simple Calculator</h2>' in response.data
+    
+    # Test addition: 10 + 5
+    client.post('/', data={'display': '10+5='})
+    response = client.get('/')
+    assert b'15.0' in response.data
+    print("Test addition: 10 + 5 = 15")
 
-    response = client.get('/?a=-1&b=1&operation=add')  # Updated route here
-    json_data = response.get_json()
-    assert response.status_code == 200
-    assert json_data['result'] == 0
-    print(f"Test addition: -1 + 1 = {json_data['result']}")
+    # Test addition: -1 + 1
+    client.post('/', data={'display': '-1+1='})
+    response = client.get('/')
+    assert b'0.0' in response.data
+    print("Test addition: -1 + 1 = 0")
 
-    response = client.get('/?a=-1&b=-1&operation=add')  # Updated route here
-    json_data = response.get_json()
-    assert response.status_code == 200
-    assert json_data['result'] == -2
-    print(f"Test addition: -1 + -1 = {json_data['result']}")
+    # Test addition: -1 + -1
+    client.post('/', data={'display': '-1+-1='})
+    response = client.get('/')
+    assert b'-2.0' in response.data
+    print("Test addition: -1 + -1 = -2")
 
 if __name__ == '__main__':
     pytest.main(['-v', __file__])
-
 
 
 
