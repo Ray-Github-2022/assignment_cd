@@ -1,42 +1,35 @@
 # test_calculator.py
 
-# Import necessary modules
 import pytest
 from calculator import calculator
 
-# Define fixture to set up the test client
 @pytest.fixture
 def client():
     calculator.config['TESTING'] = True
     with calculator.test_client() as client:
         yield client
 
-# Define test case
 def test_add(client):
-    # Send a GET request to the calculator route
-    response = client.get('/')
-
-    # Assert that the response status code is 200
+    response = client.get('/?a=10&b=5&operation=add')  # Updated route here
+    json_data = response.get_json()
     assert response.status_code == 200
+    assert json_data['result'] == 15
+    print(f"Test addition: 10 + 5 = {json_data['result']}")
 
-    # Define expected HTML content
-    expected_content = [
-        b'<h3>Hello, how are you?</h3>',
-        b'<h2>Simple Calculator..</h2>',
-        b'<form method="post">',
-        b'<input type="number" name="a" placeholder="Enter first number" required>',
-        b'<input type="number" name="b" placeholder="Enter second number" required>',
-        b'<select name="operation">',
-        b'<option value="add">Addition</option>',
-        b'<option value="subtract">Subtraction</option>',
-        b'<option value="multiply">Multiplication</option>',
-        b'<option value="divide">Division</option>',
-        b'<button type="submit">Calculate</button>'
-    ]
+    response = client.get('/?a=-1&b=1&operation=add')  # Updated route here
+    json_data = response.get_json()
+    assert response.status_code == 200
+    assert json_data['result'] == 0
+    print(f"Test addition: -1 + 1 = {json_data['result']}")
 
-    # Check if each expected HTML content is present in the response data
-    for content in expected_content:
-        assert content in response.data
+    response = client.get('/?a=-1&b=-1&operation=add')  # Updated route here
+    json_data = response.get_json()
+    assert response.status_code == 200
+    assert json_data['result'] == -2
+    print(f"Test addition: -1 + -1 = {json_data['result']}")
+
+if __name__ == '__main__':
+    pytest.main(['-v', __file__])
 
 
 
