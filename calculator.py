@@ -41,6 +41,7 @@ HTML_PAGE = """
             border-radius: 4px;
             font-size: 16px;
             cursor: pointer;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Added shadow */
         }
         .calculator button:hover {
             background-color: #f0f0f0;
@@ -75,9 +76,13 @@ HTML_PAGE = """
             <button type="submit" name="operator" value="*">*</button>
             <br>
             <button type="submit" name="digit" value="0">0</button>
+            <button type="submit" name="digit" value=".">.</button>
+            <button type="submit" name="operator" value="%">%</button>
             <button type="submit" name="operator" value="/">/</button>
+            <br> <!-- New row for DEL=clear and calculate= buttons -->
             <button type="submit" name="clear" value="clear">Del</button>
             <button type="submit" name="calculate" value="calculate">=</button>
+            
         </form>
         {% if result is defined %}
         <h3>Outcome: {{ result }}</h3>
