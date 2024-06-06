@@ -1,6 +1,6 @@
 # test_calculate.py
 import pytest
-from WINC.python.assignment_cd.calculate import calculate
+from calculate import calculate
 
 @pytest.fixture
 def client():
