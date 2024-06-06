@@ -1,6 +1,5 @@
-# test_calculate.py
+# test_calculator.py
 
-# test_addition.py
 import pytest
 from calculator import calculator
 
