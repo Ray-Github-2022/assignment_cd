@@ -3,7 +3,7 @@
 
 from flask import Flask, request, render_template_string
 
-app = Flask(__name__)
+calculate = Flask(__name__)
 
 HTML_PAGE = """
 <!DOCTYPE html>
@@ -83,7 +83,7 @@ HTML_PAGE = """
 </html>
 """
 
-@app.route('/', methods=['GET', 'POST'])
+@calculate.route('/', methods=['GET', 'POST'])
 def index():
     result = None
     error = None
@@ -110,4 +110,4 @@ def index():
     return render_template_string(HTML_PAGE, result=result, error=error)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    calculate.run(debug=True)
