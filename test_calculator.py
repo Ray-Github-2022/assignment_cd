@@ -20,7 +20,7 @@ def test_add(client):
     assert response.status_code == 200
 
     # Check if the response contains valid HTML content
-    assert b'<title>Hello Today! Simple Calculator</title>' in response.data
+    assert b'Hello, how are you?' in response.data
     assert b'<h2>Simple Calculator..</h2>' in response.data
     assert b'<form method="post">' in response.data
     assert b'<input type="number" name="a" placeholder="Enter first number" required>' in response.data
@@ -31,6 +31,7 @@ def test_add(client):
     assert b'<option value="multiply">Multiplication</option>' in response.data
     assert b'<option value="divide">Division</option>' in response.data
     assert b'<button type="submit">Calculate</button>' in response.data
+
 
 
 
