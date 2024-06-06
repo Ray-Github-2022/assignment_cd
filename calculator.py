@@ -2,6 +2,7 @@
 # HTML and CSS for the front-end interface and Flask to handle the back-end logic.
 
 from flask import Flask, request, render_template_string
+import re
 
 calculator = Flask(__name__)
 
@@ -11,7 +12,7 @@ HTML_PAGE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello Today! Simple Calculator</title>
+    <title>Simple Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -31,21 +32,18 @@ HTML_PAGE = """
             width: 100%;
             text-align: center;
         }
-        .calculator input, .calculator select, .calculator button {
-            width: calc(100% - 20px);
+        .calculator button {
+            width: 50px;
+            height: 50px;
             padding: 10px;
-            margin: 10px 0;
+            margin: 5px;
             border: 1px solid #ccc;
             border-radius: 4px;
-        }
-        .calculator button {
-            background-color: #28a745;
-            color: #fff;
             font-size: 16px;
             cursor: pointer;
         }
         .calculator button:hover {
-            background-color: #218838;
+            background-color: #f0f0f0;
         }
         .result {
             margin-top: 10px;
@@ -56,27 +54,34 @@ HTML_PAGE = """
 </head>
 <body>
     <div class="calculator">
-        <h3>Hello, how are you?</h3>
-        <h2>Simple Calculator..</h2>
+        <h3>Hi, how are you today?</h3>
+        <h2>My Simple Calculator</h2>
         <form method="post">
-            <input type="number" name="a" placeholder="Enter first number" required>
-            <input type="number" name="b" placeholder="Enter second number" required>
-            <select name="operation">
-                <option value="add">Addition</option>
-                <option value="subtract">Subtraction</option>
-                <option value="multiply">Multiplication</option>
-                <option value="divide">Division</option>
-            </select>
-            <button type="submit">Calculate</button>
+            <input type="text" name="expression" id="expression" value="{{ expression }}" readonly>
+            <br>
+            <br>
+            <button type="submit" name="digit" value="1">1</button>
+            <button type="submit" name="digit" value="2">2</button>
+            <button type="submit" name="digit" value="3">3</button>
+            <button type="submit" name="operator" value="+">+</button>
+            <br>
+            <button type="submit" name="digit" value="4">4</button>
+            <button type="submit" name="digit" value="5">5</button>
+            <button type="submit" name="digit" value="6">6</button>
+            <button type="submit" name="operator" value="-">-</button>
+            <br>
+            <button type="submit" name="digit" value="7">7</button>
+            <button type="submit" name="digit" value="8">8</button>
+            <button type="submit" name="digit" value="9">9</button>
+            <button type="submit" name="operator" value="*">*</button>
+            <br>
+            <button type="submit" name="digit" value="0">0</button>
+            <button type="submit" name="operator" value="/">/</button>
+            <button type="submit" name="clear" value="clear">Del</button>
+            <button type="submit" name="calculate" value="calculate">=</button>
         </form>
-        {% if result is not none %}
-        <div class="result">
-            <p>Last result: {{ result }}</p>
-        </div>
-        {% elif error is not none %}
-        <div class="result">
-            <p style="color: red;">Error: {{ error }}</p>
-        </div>
+        {% if result is defined %}
+        <h3>Outcome: {{ result }}</h3>
         {% endif %}
     </div>
 </body>
@@ -84,31 +89,29 @@ HTML_PAGE = """
 """
 
 @calculator.route('/', methods=['GET', 'POST'])
-def index():
+def handle_calculator():
+    expression = ''
     result = None
-    error = None
+
     if request.method == 'POST':
-        try:
-            a = request.form.get('a', type=float)
-            b = request.form.get('b', type=float)
-            operation = request.form.get('operation')
+        expression = request.form.get('expression', '')
 
-            if operation == 'add':
-                result = a + b
-            elif operation == 'subtract':
-                result = a - b
-            elif operation == 'multiply':
-                result = a * b
-            elif operation == 'divide':
-                if b == 0:
-                    error = "Cannot divide by zero"
-                else:
-                    result = a / b
-        except ValueError:
-            error = "Invalid input. Please enter valid numbers."
+        if 'digit' in request.form:
+            expression += request.form['digit']
+        elif 'operator' in request.form:
+            expression += ' ' + request.form['operator'] + ' '
+        elif 'clear' in request.form:
+            expression = ''
+        elif 'calculate' in request.form:
+            try:
+                expression = re.sub(r'[^0-9+\-*/.\s]', '', expression)
+                result = eval(expression)
+            except Exception as e:
+                result = 'Error: ' + str(e)
 
-    return render_template_string(HTML_PAGE, result=result, error=error)
+    return render_template_string(HTML_PAGE, expression=expression, result=result)
 
 if __name__ == '__main__':
     calculator.run(debug=True)
+
 
