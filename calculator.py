@@ -1,4 +1,4 @@
-# calculate.py
+# calculator.py
 # HTML and CSS for the front-end interface and Flask to handle the back-end logic.
 
 # app.py
