@@ -54,9 +54,8 @@ HTML_PAGE = """
 </head>
 <body>
     <div class="calculator">
-      <h3>Hi, how are you today?</h3>
-      <h2>My Simple Calculator</h2>
         <form method="post">
+            <br>
             <input type="text" name="expression" id="expression" value="{{ expression }}" readonly>
             <br>
             <br>
@@ -113,5 +112,3 @@ def handle_calculator():
 
 if __name__ == '__main__':
     calculator.run(debug=True)
-
-
