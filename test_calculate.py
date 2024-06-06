@@ -1,4 +1,4 @@
-# test_calculation.py
+# test_calculate.py
 import pytest
 from WINC.python.assignment_cd.calculate import calculate
 
