@@ -107,7 +107,7 @@ def index():
         except ValueError:
             error = "Invalid input. Please enter valid numbers."
 
-    return render_template_string(HTML_PAGE, result=result, error=error)
+    return render_template_string(result=result, error=error)
 
 if __name__ == '__main__':
     calculator.run(debug=True)
