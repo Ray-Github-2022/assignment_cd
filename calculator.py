@@ -1,8 +1,12 @@
 # calculator.py
-from flask import Flask, request, render_template_string, jsonify
 
+# Import necessary modules
+from flask import Flask, request, jsonify
+
+# Create Flask app instance
 calculator = Flask(__name__)
 
+# Define HTML template
 HTML_PAGE = """
 <!DOCTYPE html>
 <html lang="en">
@@ -20,22 +24,37 @@ HTML_PAGE = """
 </html>
 """
 
+# Define calculator route
 @calculator.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        # Handle form submission
-        # Return JSON response
-        pass
-    else:
-        if 'werkzeug.client' in request.environ:
-            # Test environment
-            return jsonify({'message': 'This is a test response'})
-        else:
-            # Regular environment
-            return render_template_string(HTML_PAGE)
+        # Extract input values from form
+        a = float(request.form.get('a'))
+        b = float(request.form.get('b'))
+        operation = request.form.get('operation')
 
+        # Perform calculation based on operation
+        if operation == 'add':
+            result = a + b
+        elif operation == 'subtract':
+            result = a - b
+        elif operation == 'multiply':
+            result = a * b
+        elif operation == 'divide':
+            if b == 0:
+                return jsonify({'error': 'Cannot divide by zero'})
+            result = a / b
+
+        # Return JSON response with result
+        return jsonify({'result': result})
+
+    # Return HTML template for GET request
+    return HTML_PAGE
+
+# Run the Flask app if executed directly
 if __name__ == '__main__':
     calculator.run(debug=True)
+
 
 
 # # calculator.py
