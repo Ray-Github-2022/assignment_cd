@@ -1,68 +1,9 @@
 # calculator.py
+# HTML and CSS for the front-end interface and Flask to handle the back-end logic.
 
-# Import necessary modules
-from flask import Flask, request, jsonify
+from flask import Flask, request, render_template_string
 
-# Create Flask app instance
 calculator = Flask(__name__)
-
-# Define HTML template
-HTML_PAGE = """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello Today! Simple Calculator</title>
-    <style>
-        /* Your CSS styles here */
-    </style>
-</head>
-<body>
-    <!-- Your HTML content here -->
-</body>
-</html>
-"""
-
-# Define calculator route
-@calculator.route('/', methods=['GET', 'POST'])
-def index():
-    if request.method == 'POST':
-        # Extract input values from form
-        a = float(request.form.get('a'))
-        b = float(request.form.get('b'))
-        operation = request.form.get('operation')
-
-        # Perform calculation based on operation
-        if operation == 'add':
-            result = a + b
-        elif operation == 'subtract':
-            result = a - b
-        elif operation == 'multiply':
-            result = a * b
-        elif operation == 'divide':
-            if b == 0:
-                return jsonify({'error': 'Cannot divide by zero'})
-            result = a / b
-
-        # Return JSON response with result
-        return jsonify({'result': result})
-
-    # Return HTML template for GET request
-    return HTML_PAGE
-
-# Run the Flask app if executed directly
-if __name__ == '__main__':
-    calculator.run(debug=True)
-
-
-
-# # calculator.py
-# # HTML and CSS for the front-end interface and Flask to handle the back-end logic.
-
-# from flask import Flask, request, render_template_string
-
-# calculator = Flask(__name__)
 
 # HTML_PAGE = """
 # <!DOCTYPE html>
@@ -142,35 +83,32 @@ if __name__ == '__main__':
 # </html>
 # """
 
-# @calculator.route('/', methods=['GET', 'POST'])
-# def index():
-#     result = None
-#     error = None
-#     if request.method == 'POST':
-#         try:
-#             a = request.form.get('a', type=float)
-#             b = request.form.get('b', type=float)
-#             operation = request.form.get('operation')
+@calculator.route('/', methods=['GET', 'POST'])
+def index():
+    result = None
+    error = None
+    if request.method == 'POST':
+        try:
+            a = request.form.get('a', type=float)
+            b = request.form.get('b', type=float)
+            operation = request.form.get('operation')
 
-#             if operation == 'add':
-#                 result = a + b
-#             elif operation == 'subtract':
-#                 result = a - b
-#             elif operation == 'multiply':
-#                 result = a * b
-#             elif operation == 'divide':
-#                 if b == 0:
-#                     error = "Cannot divide by zero"
-#                 else:
-#                     result = a / b
-#         except ValueError:
-#             error = "Invalid input. Please enter valid numbers."
+            if operation == 'add':
+                result = a + b
+            elif operation == 'subtract':
+                result = a - b
+            elif operation == 'multiply':
+                result = a * b
+            elif operation == 'divide':
+                if b == 0:
+                    error = "Cannot divide by zero"
+                else:
+                    result = a / b
+        except ValueError:
+            error = "Invalid input. Please enter valid numbers."
 
-#     return render_template_string(HTML_PAGE, result=result, error=error)
+    return render_template_string(HTML_PAGE, result=result, error=error)
 
-# if __name__ == '__main__':
-#     calculator.run(debug=True)
-
-# if __name__ == '__main__':
-#     calculator.run(debug=True)
+if __name__ == '__main__':
+    calculator.run(debug=True)
 
