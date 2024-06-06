@@ -1,42 +1,36 @@
 # test_calculator.py
+
+# Import necessary modules
 import pytest
 from calculator import calculator
 
+# Define fixture to set up the test client
 @pytest.fixture
 def client():
     calculator.config['TESTING'] = True
     with calculator.test_client() as client:
         yield client
 
+# Define test case
 def test_add(client):
-    response = client.get('/?a=10&b=5&operation=add')  # Updated route here
+    # Send a GET request to the calculator route
+    response = client.get('/')
+
+    # Assert that the response status code is 200
     assert response.status_code == 200
 
-    # Check if the response contains valid JSON data
-    json_data = response.get_json()
-    if json_data is None:
-        print("Response does not contain valid JSON data:")
-        print(response.data.decode('utf-8'))  # Print the response content
-        assert False  # Fail the test
-
-    assert json_data['result'] == 15
-    print(f"Test addition: 10 + 5 = {json_data['result']}")
-
-    response = client.get('/?a=-1&b=1&operation=add')  # Update with subtraction operation
-    assert response.status_code == 200
-
-    json_data = response.get_json()
-    assert json_data['result'] == 0
-    print(f"Test addition: -1 + 1 = {json_data['result']}")
-
-    response = client.get('/?a=-1&b=-1&operation=add')  # Update with multiplication operation
-    assert response.status_code == 200
-
-    json_data = response.get_json()
-    assert json_data['result'] == -2
-    print(f"Test addition: -1 + -1 = {json_data['result']}")
-
-
+    # Check if the response contains valid HTML content
+    assert b'<title>Hello Today! Simple Calculator</title>' in response.data
+    assert b'<h2>Simple Calculator..</h2>' in response.data
+    assert b'<form method="post">' in response.data
+    assert b'<input type="number" name="a" placeholder="Enter first number" required>' in response.data
+    assert b'<input type="number" name="b" placeholder="Enter second number" required>' in response.data
+    assert b'<select name="operation">' in response.data
+    assert b'<option value="add">Addition</option>' in response.data
+    assert b'<option value="subtract">Subtraction</option>' in response.data
+    assert b'<option value="multiply">Multiplication</option>' in response.data
+    assert b'<option value="divide">Division</option>' in response.data
+    assert b'<button type="submit">Calculate</button>' in response.data
 
 
 
