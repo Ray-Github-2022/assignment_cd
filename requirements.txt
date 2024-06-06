@@ -1,8 +1,8 @@
 # All dependencies below here.. 
 # And installed in the run-tests.yml WORKFLOW
 
-Flask
 pytest
+Flask
 
 # By listing just pytest in the requirements.txt file without specifying a version, you're allowing pip to install the latest compatible version of pytest for your Python environment. 
 # This approach ensures that you use a version of pytest that is compatible with your Python version without explicitly specifying a version number.
