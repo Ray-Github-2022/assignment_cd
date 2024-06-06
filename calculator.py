@@ -4,7 +4,7 @@
 # app.py
 from flask import Flask, request, render_template_string
 
-app = Flask(__name__)
+calculator = Flask(__name__)
 
 HTML_PAGE = """
 <!DOCTYPE html>
@@ -74,7 +74,7 @@ HTML_PAGE = """
 </html>
 """
 
-@app.route('/', methods=['GET', 'POST'])
+@calculator.route('/', methods=['GET', 'POST'])
 def index():
     result = None
     if request.method == 'POST':
@@ -84,5 +84,5 @@ def index():
     return render_template_string(HTML_PAGE, result=result)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    calculator.run(debug=True)
 
