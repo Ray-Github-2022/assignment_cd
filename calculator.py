@@ -1,8 +1,7 @@
 # calculator.py
 # HTML and CSS for the front-end interface and Flask to handle the back-end logic.
 
-# app.py
-from flask import Flask, request, jsonify, render_template_string
+from flask import Flask, request, render_template_string
 
 calculator = Flask(__name__)
 
@@ -14,7 +13,45 @@ HTML_PAGE = """
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello Today! Simple Calculator</title>
     <style>
-        /* Your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 300px;
+            width: 100%;
+            text-align: center;
+        }
+        .calculator input, .calculator select, .calculator button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .calculator button {
+            background-color: #28a745;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .calculator button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #333;
+        }
     </style>
 </head>
 <body>
@@ -48,10 +85,12 @@ HTML_PAGE = """
 
 @calculator.route('/', methods=['GET', 'POST'])
 def index():
+    result = None
+    error = None
     if request.method == 'POST':
         try:
-            a = float(request.form.get('a'))
-            b = float(request.form.get('b'))
+            a = request.form.get('a', type=float)
+            b = request.form.get('b', type=float)
             operation = request.form.get('operation')
 
             if operation == 'add':
@@ -63,16 +102,12 @@ def index():
             elif operation == 'divide':
                 if b == 0:
                     error = "Cannot divide by zero"
-                    return render_template_string(HTML_PAGE, error=error)
                 else:
                     result = a / b
         except ValueError:
             error = "Invalid input. Please enter valid numbers."
-            return render_template_string(HTML_PAGE, error=error)
-        
-        return jsonify({'result': result})
 
-    return render_template_string(HTML_PAGE)
+    return render_template_string(HTML_PAGE, result=result, error=error)
 
 if __name__ == '__main__':
     calculator.run(debug=True)
