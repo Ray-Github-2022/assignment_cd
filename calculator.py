@@ -76,13 +76,13 @@ HTML_PAGE = """
             <button type="submit" name="operator" value="*">*</button>
             <br>
             <button type="submit" name="digit" value="0">0</button>
-            <button type="submit" name="digit" value=".">.</button>
+            <button type="submit" name="digit" value=","><b>,</b></button>
             <button type="submit" name="operator" value="%">%</button>
             <button type="submit" name="operator" value="/">/</button>
             <br> <!-- New row for DEL=clear and calculate= buttons -->
             <button type="submit" name="clear" value="clear">Del</button>
             <button type="submit" name="negate" value="negate">+/-</button>
-            <button type="submit" name="calculate" value="calculate">=</button>
+            <button type="submit" name="calculate" value="calculate"><b>=</b></button>
         </form>
         {% if result is defined %}
         <h3>Outcome: {{ result }}</h3>
