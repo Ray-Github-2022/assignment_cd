@@ -119,6 +119,6 @@ def handle_calculator():
 
     return render_template_string(HTML_PAGE, expression=expression, result=result)
 
-if __name__ == '__calculator__':
+if __name__ == '__main__':
     calculator.run(debug=True)
 
