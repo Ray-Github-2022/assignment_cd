@@ -33,5 +33,5 @@ def test_add(client):
     print("Test addition: -1 + -1 = -2")
 
 if __name__ == '__calculator__':
-    pytest.calculator(['-v', __file__])
+    pytest.main(['-v', __file__])
 
