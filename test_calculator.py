@@ -32,6 +32,6 @@ def test_add(client):
     assert b'-2.0' in response.data
     print("Test addition: -1 + -1 = -2")
 
-if __name__ == '__main__':
-    pytest.main(['-v', __file__])
+if __name__ == '__calculator__':
+    pytest.calculator(['-v', __file__])
 
