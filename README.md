@@ -23,7 +23,7 @@ Finally, write a short, 200/300-word report in which you discuss at least the fo
    I couldn't/haven't resolved the issue, so I setup the VPS - Digital Ocean. The calculator functions OK
    After that I couldn't resolve the issue with Flask on GitHub Testing, what should I change here / what is wrong?
    Lastly I created the SSH key, and saved it in GitHub. I couldn't save it in VPS - Digital Ocean, and didn't understand why..
-   => Here I got the remark, invalid key.. I used: cat ~/.ssh/id_rsa.pub and included the correct id_ xxxxx
+   => Here I got the remark, invalid public key.. I used: cat ~/.ssh/id_rsa.pub and included the correct id_ xxxxx
 
    Also I revised the HTML code, after running the updated file in the browser it didn't show the updated code?
    After this I restarted nginx, but nothing changed.. And still the updated file isn't running.
