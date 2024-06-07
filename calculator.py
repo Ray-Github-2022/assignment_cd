@@ -12,7 +12,7 @@ HTML_PAGE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Calculator</title>
+    <title>IP Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,7 +56,7 @@ HTML_PAGE = """
 <body>
     <div class="calculator">
         <form method="post">
-            <br>
+        <h3>IP Calculator</h3>
             <input type="text" name="expression" id="expression" value="{{ expression }}" readonly>
             <br>
             <br>
