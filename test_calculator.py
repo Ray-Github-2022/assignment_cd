@@ -12,7 +12,7 @@ def client():
 def test_add(client):
     response = client.get('/')
     assert response.status_code == 200
-    assert b'<h2>Simple Calculator</h2>' in response.data
+    assert b'<h3>IP Calculator</h3>' in response.data
     
     # Test addition: 10 + 5
     client.post('/', data={'display': '10+5='})
