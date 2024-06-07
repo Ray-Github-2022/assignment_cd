@@ -10,10 +10,14 @@ Finally, write a short, 200/300-word report in which you discuss at least the fo
    
 2. Discuss three problems that you encountered along the way and how you solved them.
 
-   First problem: connecting Flask to my calculator.app without receiving errors => resolved.
+   First problem: connecting Flask to my calculator.app without receiving errors =>
+
+
+
+
    Before resolving the issue, I setup the VPS - Digital Ocean. All functions OK
    After that I resolved the issue with Flask on GitHub Testing, lastly SSH
 
-3. (optional) Anything of note that you want to share about the process of solving this assignment.
+4. (optional) Anything of note that you want to share about the process of solving this assignment.
 
    Above mentioned "Flask connecting issue" to be explained a bit more..
