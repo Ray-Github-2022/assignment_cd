@@ -1,7 +1,8 @@
 # calculator.py
 # HTML and CSS for the front-end interface and Flask to handle the back-end logic.
 
-from flask import Flask, request, render_template_string
+# from flask import Flask, request, render_template_string
+from flask import Flask, request
 import re
 
 calculator = Flask(__name__)
@@ -118,7 +119,6 @@ def handle_calculator():
                 expression = expression[1:] if expression.startswith('-') else '-' + expression
 
     # return render_template_string(HTML_PAGE, expression=expression, result=result)
-    return render_template_string(expression=expression, result=result)
 
 if __name__ == '__main__':
     calculator.run(debug=True)
