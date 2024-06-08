@@ -13,7 +13,7 @@ def test_add(client):
     response = client.get('/')
     assert response.status_code == 200
     assert b'IP Calculator' in response.data
-    # assert b'Outcome: None' in response.data
+    assert b'Outcome: None' in response.data
 
     # Simulate inputting "10+5=" and checking the result
     response = client.post('/', data={'expression': '10', 'operator': '+'})
