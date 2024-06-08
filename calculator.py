@@ -1,7 +1,7 @@
 # calculator.py
 # HTML and CSS for the front-end interface and Flask to handle the back-end logic.
 
-from flask import Flask, request, render_template_string
+from flask import Flask, request, jsonify, render_template_string
 import re
 
 calculator = Flask(__name__)
@@ -41,10 +41,13 @@ HTML_PAGE = """
             border-radius: 4px;
             font-size: 16px;
             cursor: pointer;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Added shadow */
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
         .calculator button:hover {
             background-color: #f0f0f0;
+        }
+        .double-width {
+            width: 110px;
         }
         .result {
             margin-top: 10px;
@@ -76,13 +79,13 @@ HTML_PAGE = """
             <button type="submit" name="operator" value="*">*</button>
             <br>
             <button type="submit" name="digit" value="0">0</button>
-            <button type="submit" name="digit" value=","><b>,</b></button>
+            <button type="submit" name="digit" value=".">.</button>
             <button type="submit" name="operator" value="%">%</button>
             <button type="submit" name="operator" value="/">/</button>
             <br> <!-- New row for DEL=clear and calculate= buttons -->
             <button type="submit" name="clear" value="clear">Del</button>
             <button type="submit" name="negate" value="negate">+/-</button>
-            <button type="submit" name="calculate" value="calculate"><b>=</b></button>
+            <button type="submit" name="calculate" value="calculate" class="double-width"><b>=</b></button>
         </form>
         {% if result is defined %}
         <h3>Outcome: {{ result }}</h3>
@@ -108,19 +111,23 @@ def handle_calculator():
             expression = ''
         elif 'calculate' in request.form:
             try:
-                expression = re.sub(r'[^0-9+\-*/.\s]', '', expression)
+                expression = re.sub(r'[^0-9+\-*/.%\s]', '', expression)
                 result = eval(expression)
+                expression = str(result)
             except Exception as e:
                 result = 'Error: ' + str(e)
         elif 'negate' in request.form:
             if expression:
                 # Toggle the sign of the number
-                expression = expression[1:] if expression.startswith('-') else '-' + expression
+                if expression.startswith('-'):
+                    expression = expression[1:]
+                else:
+                    expression = '-' + expression
+
+    if request.args.get('format') == 'json':
+        return jsonify(result=result)
 
     return render_template_string(HTML_PAGE, expression=expression, result=result)
 
 if __name__ == '__main__':
     calculator.run(debug=True)
-    app.run(debug=True)
-
-
