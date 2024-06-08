@@ -118,7 +118,6 @@ def handle_calculator():
                 result = 'Error: ' + str(e)
         elif 'negate' in request.form:
             if expression:
-                # Toggle the sign of the number
                 if expression.startswith('-'):
                     expression = expression[1:]
                 else:
