@@ -9,6 +9,18 @@ jobs:
   run-tests:
     runs-on: ubuntu-20.04
     steps:
+      - name: Setup SSH
+        env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H your.server.com >> ~/.ssh/known_hosts
+
+      - name: Deploy to Server
+        run: |
+          ssh user@your.server.com 'your-deployment-command'
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Setup Python 3.11
