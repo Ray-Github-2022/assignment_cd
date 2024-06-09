@@ -46,9 +46,6 @@ HTML_PAGE = """
         .calculator button:hover {
             background-color: #f0f0f0;
         }
-        .double-width {
-            width: 110px;
-        }
         .result {
             margin-top: 10px;
             font-size: 18px;
@@ -85,7 +82,7 @@ HTML_PAGE = """
             <br> <!-- New row for DEL=clear and calculate= buttons -->
             <button type="submit" name="clear" value="clear">Del</button>
             <button type="submit" name="negate" value="negate">+/-</button>
-            <button type="submit" name="calculate" value="calculate" class="double-width"><b>=</b></button>
+            <button type="submit" name="calculate" value="calculate"><b>=</b></button>
         </form>
         {% if result is defined %}
         <h3>Outcome: {{ result }}</h3>
