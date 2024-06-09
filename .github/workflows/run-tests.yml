@@ -23,7 +23,7 @@ jobs:
 
     - name: Deploy to Server
       run: |
-        ssh -o StrictHostKeyChecking=no user@64.226.92.208 'your-deployment-command'
+        ssh -o StrictHostKeyChecking=no user@root 'your-deployment-command'
         
     - name: Checkout repository
       uses: actions/checkout@v3
