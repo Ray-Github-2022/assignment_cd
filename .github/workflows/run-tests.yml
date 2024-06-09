@@ -12,18 +12,18 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    # - name: Setup SSH
-    #   env:
-    #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-    #   run: |
-    #     mkdir -p ~/.ssh
-    #     echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-    #     chmod 600 ~/.ssh/id_rsa
-    #     ssh-keyscan -H http://64.226.92.208:8000 >> ~/.ssh/known_hosts
+    - name: Setup SSH
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_ed25519
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H http://64.226.92.208 >> ~/.ssh/known_hosts
 
-    # - name: Deploy to Server
-    #   run: |
-    #     ssh -o StrictHostKeyChecking=no user@http://64.226.92.208:8000 'your-deployment-command'
+    - name: Deploy to Server
+      run: |
+        ssh -o StrictHostKeyChecking=no user@http://64.226.92.208 'your-deployment-command'
         
     - name: Checkout repository
       uses: actions/checkout@v3
