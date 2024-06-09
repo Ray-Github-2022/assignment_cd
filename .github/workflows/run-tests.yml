@@ -14,10 +14,10 @@ jobs:
 
     - name: Setup SSH
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SSH_PRIVATE_KEY: ${{ secrets.ASSIGNMENT_CD }}
       run: |
         mkdir -p ~/.ssh
-        echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+        echo "$ASSIGNMENT_CD" | tr -d '\r' > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H 64.226.92.208 >> ~/.ssh/known_hosts
 
