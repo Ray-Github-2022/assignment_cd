@@ -21,10 +21,6 @@ jobs:
         port: 22
         script: |
           your-deployment-command
-
-    - name: Deploy to Server
-      run: |
-        ssh -o StrictHostKeyChecking=no root@162.243.190.66 'your-deployment-command'
         
     - name: Checkout repository
       uses: actions/checkout@v3
