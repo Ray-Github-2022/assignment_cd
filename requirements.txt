@@ -8,5 +8,6 @@ pytest
 # This approach ensures that you use a version of pytest that is compatible with your Python version without explicitly specifying a version number.
 # Using only pytest in the requirements.txt file is a common practice and simplifies dependency management by letting pip handle the version compatibility automatically.
 
-# If you have any other dependencies for your project, you can list them in the requirements.txt file in the same format, with each dependency on a new line. For example:
+# If you have any other dependencies for your project, you can list them in the requirements.txt file in the same format, with each dependency on a new line. 
+# For example:
 # other-dependency==1.0.0
