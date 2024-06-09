@@ -22,15 +22,23 @@ Finally, write a short, 200/300-word report in which you discuss at least the fo
    Code now checks for a query parameter to decide whether to return just the result or the entire HTML page.
 
    After resolving the issue, I setup the VPS - Digital Ocean. The calculator functions OK
+
    Lastly I created the SSH key, and saved it in GitHub. I couldn't save it in VPS - Digital Ocean, and didn't understand why..
    => Here I got the remark, invalid public key.. I used: cat ~/.ssh/id_rsa.pub and included the correct id_ xxxxx
+
+   Including below error:
+   2024/06/09 10:23:26 ssh.ParsePrivateKey: ssh: no key found
+   ======CMD======
+   your-deployment-command
+   ======END======
+   2024/06/09 10:23:26 dial tcp :22: connect: connection refused
 
    Also I revised the HTML code, after running the updated file in the browser this correctly showed the updated code.
 
 4. (optional) Anything of note that you want to share about the process of solving this assignment.
 
    Above mentioned "Flask connecting issue" to be explained a bit more => Resolved
-   Saving the SSH key in VPS - Digital Ocean => In progress
+   Saving the SSH key in VPS - Digital Ocean => In progress ??
    Also updating files to be explained => Resolved
 
    Thanks!
