@@ -27,7 +27,7 @@ HTML_PAGE = """
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 10px 10px 8px 0px rgba(0, 0, 0, 0.2);
             max-width: 300px;
             width: 100%;
             text-align: center;
