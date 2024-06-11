@@ -37,5 +37,9 @@ jobs:
         script: |
           pwd
           ls
+          cd /home/assignment_cd
+          pwd
+          ls
+          
         
   
