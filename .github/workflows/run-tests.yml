@@ -40,6 +40,9 @@ jobs:
           cd /home/assignment_cd
           pwd
           ls
+          git pull origin main
+          systemctl restart assignment_cd
+          systemctl status assignment_cd
           
         
   
