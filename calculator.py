@@ -20,7 +20,7 @@ HTML_PAGE = """
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f9;
+            background-color: red;
             margin: 0;
         }
         .calculator {
