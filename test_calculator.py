@@ -1,6 +1,6 @@
 # test_calculator.py
 
-import pytestt
+import pytest
 from calculator import calculator as app
 
 @pytest.fixture
