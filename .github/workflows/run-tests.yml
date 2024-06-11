@@ -11,7 +11,22 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Setup Python 3.11
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.11.0'
+    - name: Install Dependencies
+      run: pip install -r requirements.txt
+    - name: Run tests
+      run: pytest
+      
+  deploy:
+    runs-on: ubuntu-20.04
+    needs: run-tests
+    steps:
+    
     - name: Execute remote SSH commands
       uses: appleboy/ssh-action@v0.1.3
       with:
@@ -23,13 +38,4 @@ jobs:
           pwd
           ls
         
-    - name: Checkout repository
-      uses: actions/checkout@v3
-    - name: Setup Python 3.11
-      uses: actions/setup-python@v3
-      with:
-        python-version: '3.11.0'
-    - name: Install Dependencies
-      run: pip install -r requirements.txt
-    - name: Run tests
-      run: pytest
+  
