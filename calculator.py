@@ -12,7 +12,7 @@ HTML_PAGE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IP Calculator</title>
+    <title>MY Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
