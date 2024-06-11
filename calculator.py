@@ -62,7 +62,7 @@ HTML_PAGE = """
 <body>
     <div class="calculator">
         <form method="post">
-        <h3>IP Calculator</h3>
+        <h3>MY Calculator</h3>
             <input type="text" name="expression" id="expression" value="{{ expression }}" readonly>
             <br>
             <br>
